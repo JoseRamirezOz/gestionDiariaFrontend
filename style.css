@@ -1,0 +1,42 @@
+.containerPrincipal{
+    display: flex;
+    flex-direction: row;
+}
+
+.seguimientoSemanaActual{
+    background: rgba(116, 209, 255, 0.146);
+    width: 35%;
+    padding: 10px;
+}
+
+.crearActualizarTarea{
+    background: rgba(116, 255, 132, 0.146);
+    width: 35%;
+    padding: 10px;
+    padding-left: 50px;
+}
+
+
+.estatusActual{
+    background: rgba(246, 255, 116, 0.146);
+    width: 30%;
+}
+
+.estatusActual h6{
+    text-align: center;
+}
+
+.btnEditarTarea{
+    cursor: pointer
+}
+
+
+.inputFecha{
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.estatusActual{
+    padding: 10px;
+}

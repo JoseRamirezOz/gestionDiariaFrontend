@@ -16,7 +16,13 @@
     <h2 style="text-align: center;">Rutina de estudio de la semana</h2>
     <div class="containerPrincipal">
         <section class="seguimientoSemanaActual">
-            <h6 class="subtitles">Semana Actual: {{fechaInicio}} - {{fechaFin}}</h6>
+            <h6 class="subtitles">Semana Actual: {{fechaInicio}} a {{fechaFin}}</h6>
+            <div class="btnsNavegarSemanas">
+                <button type="button" class="btn btn-primary" ng-click="navegarEntreSemanas(fechaInicio,2)">< Semana Anterior</button>
+                <button type="button" class="btn btn-primary" ng-click="consultarSemanaActual()">Hoy</button>
+                <button type="button" class="btn btn-primary" ng-click="navegarEntreSemanas(fechaFin,1)">Siguiente Semana ></button>
+                
+            </div>
             <ul ng-repeat = "tarea in tareasSemana">
                 <li><b>{{tarea.diaSemana.descripcion}}:</b> {{tarea.descEstudie}} 
                     <img class="btnEditarTarea" 

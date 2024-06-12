@@ -5,6 +5,8 @@ angular.module("MyFirstApp", [])
         $scope.fechaFin = "";
         $scope.fechasDiaSemana = [];
         $scope.numeroTareasPendientes = 0;
+        $scope.fechaInicioSiguienteSemana = "";
+        $scope.fechaFinSiguienteSemana = "";
 
         $scope.diasDeLaSemana = [
             "Lunes",
@@ -105,9 +107,52 @@ angular.module("MyFirstApp", [])
       
 
 
+        $scope.navegarEntreSemanas = function (fechaCalcular, opcion) {
+            // Resetear fecha para que no atrase dias
+            let fecha;
+            let sumarPrimerDiaSemana;
+            let sumarUltimoDiaSemana
+
+            if(opcion == 1){
+                fecha = new Date(fechaCalcular);
+                fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+
+                // Sumar Dia
+                sumarPrimerDiaSemana = fecha.setDate(fecha.getDate() + 1);
+                sumarUltimoDiaSemana = fecha.setDate(fecha.getDate() + 6);
+                console.log("Semana siguiente...")
+            }else if(opcion == 2){
+                fecha = new Date(fechaCalcular);
+                fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+
+                sumarPrimerDiaSemana = fecha.setDate(fecha.getDate() - 7);
+                sumarUltimoDiaSemana = fecha.setDate(fecha.getDate() + 6);
+            }
+
+            $scope.fechaInicio = moment(sumarPrimerDiaSemana).format("YYYY-MM-DD");
+            $scope.fechaFin = moment(sumarUltimoDiaSemana).format("YYYY-MM-DD");
+
+            console.log($scope.fechaInicio)
+            console.log($scope.fechaFin)
+
+
+            $http.get(`http://localhost:8080/navegar-entre-semanas/${$scope.fechaInicio}/${$scope.fechaFin}`)
+            .success(function(data){
+                $scope.tareasSemana = data        
+                $scope.tareasSemana.forEach(e =>$scope.fechasDiaSemana.push(e.fecha))
+            }).error(function(err){
+                console.error(err)
+            });
+
+           
+        }
+
+
         // UTILIDADES 
         function convertirFecha(fechaDeseada){
             let parsedDate = moment(fechaDeseada).format("YYYY-MM-DD");
             return parsedDate;
         }
+          
+          
     }]);

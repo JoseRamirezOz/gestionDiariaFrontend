@@ -18,23 +18,52 @@
         <section class="seguimientoSemanaActual">
             <h6 class="subtitles">Semana Actual: {{fechaInicio}} a {{fechaFin}}</h6>
             <div class="btnsNavegarSemanas">
-                <button type="button" class="btn btn-primary" ng-click="navegarEntreSemanas(fechaInicio,2)">< Semana Anterior</button>
+                <button type="button" class="btn btn-primary" 
+                    ng-click="navegarEntreSemanas(fechaInicio,2)" ng-disabled="tareasSemana == 0">< Semana Anterior</button>
                 <button type="button" class="btn btn-primary" ng-click="consultarSemanaActual()">Hoy</button>
-                <button type="button" class="btn btn-primary" ng-click="navegarEntreSemanas(fechaFin,1)">Siguiente Semana ></button>
+                <button type="button" class="btn btn-primary" 
+                    ng-click="navegarEntreSemanas(fechaFin,1)" ng-disabled="tareasSemana == 0">Siguiente Semana ></button>
                 
             </div>
-            <ul ng-repeat = "tarea in tareasSemana">
-                <li><b>{{tarea.diaSemana.descripcion}}:</b> {{tarea.descEstudie}} 
+
+            <div class="card" style="width: 18rem; margin-bottom: 10px;" ng-repeat = "tarea in tareasSemana">
+                <div class="card-header" id="actividadesDia">
+                    <b style="margin-right: 60px;">{{tarea.diaSemana.descripcion}}:</b> 
+                    
+                    <div>
+                        <i>{{tarea.fecha}}</i>
+                        <img class="btnEditarTarea" 
+                            src="img/edit.png" 
+                            width="20px" 
+                            height="20px" alt="" ng-click="editarTarea(tarea.id)">
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">{{tarea.descEstudie}}  Realizado: 
+                    <img src="img/check.png" alt="" width="20px" height="20px" ng-if="tarea.cumplimiento == 1">
+                    <img src="img/neg.png" alt="" width="20px" height="20px" ng-if="tarea.cumplimiento == 0"></li>
+                </ul>
+            </div>
+            
+
+            <!-- <ul ng-repeat = "tarea in tareasSemana">
+                <li><b>{{tarea.diaSemana.descripcion}}:</b> <i>{{tarea.fecha}}</i>
                     <img class="btnEditarTarea" 
                         src="img/edit.png" 
                         width="20px" 
                         height="20px" alt="" ng-click="editarTarea(tarea.id)">
-                    <p style="display: flex; align-items: center;"> Realizado:  
+                    <p style="display: flex; align-items: center;"> {{tarea.descEstudie}}  Realizado:  
                         <img src="img/check.png" alt="" width="20px" height="20px" ng-if="tarea.cumplimiento == 1">
                         <img src="img/neg.png" alt="" width="20px" height="20px" ng-if="tarea.cumplimiento == 0">
                     </p>
                 </li>
-            </ul>
+            </ul> -->
+
+            <h5 ng-if="tareasSemana.length == 0 " style="margin-top: 50px; margin-right: 20px;">
+                <img src="img/empty.png" width="50px" height="50px" alt="">
+                No se encontraron mas registros
+            </h5>
+
         </section>
     
         <section class="crearActualizarTarea">
@@ -67,10 +96,9 @@
                 </div>
 
                 </br> </br>
-                <!-- <button ng-click="limpiarTarea()">Limpiar</button> -->
-                <!-- <button ng-click="enviarEditarTarea()">Enviar</button> -->
+                <button type="button" class="btn btn-danger">Eliminar</button>
                 <button type="button" class="btn btn-secondary" ng-click="limpiarTarea()">Limpiar</button>
-                <button type="button" class="btn btn-success" ng-click="enviarEditarTarea()">Enviar</button>
+                <button type="button" class="btn btn-success" ng-click="enviarEditarTarea(crearEditarTarea.diaSemana.descripcion)">Enviar</button>
             </form>
         </section>
 

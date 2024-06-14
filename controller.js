@@ -65,8 +65,15 @@ angular.module("MyFirstApp", [])
         $scope.obtenerTareasPendientes();
 
 
-        $scope.enviarEditarTarea = function (){
+        $scope.enviarEditarTarea = function (fecha){
             $scope.crearEditarTarea.fecha.toLocaleDateString()
+
+            $scope.diasDeLaSemana.forEach((e,i)=>{
+                if(e == fecha){
+                    $scope.crearEditarTarea.diaSemana.id = i+1   
+                }
+            })
+
             $http.post("http://localhost:8080/crear-tarea",$scope.crearEditarTarea)
             .success(function(data,status,headers,config){
                 $scope.crearEditarTarea =  {}
